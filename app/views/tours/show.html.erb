@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b><%= Tour.human_attribute_name(:registr) %>:</b>
+  <%= @tour.registr %>
+</p>
+
+<p>
+  <b><%= Tour.human_attribute_name(:date_of_departure) %>:</b>
+  <%= @tour.date_of_departure %>
+</p>
+
+<p>
+  <b><%= Tour.human_attribute_name(:client) %>:</b>
+  <%= @tour.client %>
+</p>
+
+<p>
+  <b><%= Tour.human_attribute_name(:price) %>:</b>
+  <%= @tour.price %>
+</p>
+
+<p>
+  <b><%= Tour.human_attribute_name(:employee) %>:</b>
+  <%= @tour.employee %>
+</p>
+
+
+<%= link_to 'Редактировать', edit_tour_path(@tour) %> |
+<%= link_to 'Назад', tours_path %>

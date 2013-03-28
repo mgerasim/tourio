@@ -1,0 +1,19 @@
+<h1>Список туров</h1>
+
+<table id="tours" class="display" data-source="<%= tours_url(format: "json") %>" >
+<thead>
+  <tr>
+    <th><%= Tour.human_attribute_name(:registr) %></th>
+    <th><%= Tour.human_attribute_name(:date_of_departure)%></th>
+    <th><%= Tour.human_attribute_name(:client) %></th>
+    <th><%= Tour.human_attribute_name(:price) %></th>
+    <th><%= Tour.human_attribute_name(:employee) %></th>
+  </tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+
+<br />
+
+<%= link_to 'Добавить', new_tour_path %>

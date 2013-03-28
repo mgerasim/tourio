@@ -1,0 +1,17 @@
+<h1>Список сотрудников</h1>
+
+<table id="employees" class="display" data-source="<%= employees_url(format: "json") %>">
+<thead>
+  <tr>
+    <th><%= Employee.human_attribute_name(:firstname) %></th>
+    <th><%= Employee.human_attribute_name(:lastname) %></th>
+    <th><%= Employee.human_attribute_name(:secondname) %></th>
+  </tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+
+<br />
+
+<%= link_to 'Добавить', new_employee_path %>
