@@ -1,9 +1,14 @@
 Tourio::Application.routes.draw do
+  resources :trends
+
+  get "report/count_contry_by_month"
+
   resources :tours
 
 
   resources :employees
 
+  root :to => 'tours#index'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

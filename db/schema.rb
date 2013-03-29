@@ -27,8 +27,18 @@ ActiveRecord::Schema.define(:version => 20130328075006) do
     t.string   "client"
     t.decimal  "price"
     t.integer  "employee_id"
+    t.integer  "trend_id"
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false
+  end
+
+  add_index "tours", ["employee_id"], :name => "index_tours_on_employee_id"
+  add_index "tours", ["trend_id"], :name => "index_tours_on_trend_id"
+
+  create_table "trends", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
 end

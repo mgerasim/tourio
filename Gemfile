@@ -78,3 +78,4 @@ gem "binding_of_caller", ">= 0.6.8", :group => :development
 gem 'execjs'
 gem 'therubyracer'
 gem 'will_paginate'
+gem 'rails-i18n'

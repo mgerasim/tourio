@@ -6,8 +6,12 @@ class CreateTours < ActiveRecord::Migration
       t.string :client
       t.decimal :price
       t.references :employee
+      t.references :trend
 
       t.timestamps
     end
+    
+    add_index :tours, :trend_id
+    add_index :tours, :employee_id
   end
 end
