@@ -14,5 +14,9 @@ class Employee < ActiveRecord::Base
   end
   
   has_many :tours
+  
+  def name
+    "#{self.lastname} #{self.firstname} #{self.secondname}"
+  end
 
 end

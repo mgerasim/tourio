@@ -1,6 +1,6 @@
 #encoding: utf-8
 class Tour < ActiveRecord::Base
-  attr_accessible :client, :date_of_departure, :employee_id, :price, :registr
+  attr_accessible :client, :date_of_departure, :employee_id, :price, :registr, :trend_id
   
   HUMAN_ATTRIBUTE_NAMES = {
     :name => 'Клиент',
@@ -8,7 +8,8 @@ class Tour < ActiveRecord::Base
     :employee => 'Сотрудник',
     :price => 'Цена тура',
     :registr => 'Номер',
-    :client => 'Клиент'
+    :client => 'Клиент',
+    :trend => 'Направление'
   }
   class << self
     def human_attribute_name attribute_name
@@ -17,5 +18,5 @@ class Tour < ActiveRecord::Base
   end
   
   belongs_to :employee
-
+  belongs_to :trend
 end

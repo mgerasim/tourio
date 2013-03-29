@@ -8,7 +8,7 @@ class ToursDatatable
   def as_json(options = {})
     {
       sEcho: params[:sEcho].to_i,
-      iTotalRecords: Product.count,
+      iTotalRecords: Tour.count,
       iTotalDisplayRecords: tours.total_entries,
       aaData: data
     }
@@ -21,8 +21,10 @@ private
       [
         link_to(tour.registr, tour),
         h(tour.client),
-        h(tour.date_of_departure.strftime("%B %e, %Y")),
-        number_to_currency(tour.price)
+        h(tour.date_of_departure),
+        h(tour.trend.name),
+        number_to_currency(tour.price),
+        h(tour.employee.name)
       ]
     end
   end
@@ -35,7 +37,7 @@ private
     tours = Tour.order("#{sort_column} #{sort_direction}")
     tours = tours.page(page).per_page(per_page)
     if params[:sSearch].present?
-      tours = tours.where("name like :search or category like :search", search: "%#{params[:sSearch]}%")
+      tours = tours.where("registr like :search or client like :search", search: "%#{params[:sSearch]}%")
     end
     tours
   end
@@ -49,7 +51,7 @@ private
   end
 
   def sort_column
-    columns = %w[name category released_on price]
+    columns = %w[registr date_of_departure client price employee_id trend_id]
     columns[params[:iSortCol_0].to_i]
   end
 

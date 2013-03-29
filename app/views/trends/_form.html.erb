@@ -1,0 +1,10 @@
+<%= form_for(@trend) do |f| %>
+
+  <div class="field">
+    <%= f.label Trend.human_attribute_name(:name) %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

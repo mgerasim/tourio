@@ -1,0 +1,15 @@
+<h1>Список туристических направлений</h1>
+
+<table  id="trends" class="display" data-source="<%= trends_url(format: "json")%>" >
+<thead>
+  <tr>
+    <th><%= Trend.human_attribute_name(:name) %></th>
+  </tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+
+<br />
+
+<%= link_to 'Добавить', new_trend_path %>

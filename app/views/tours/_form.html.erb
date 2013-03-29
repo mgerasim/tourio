@@ -1,15 +1,4 @@
 <%= form_for(@tour) do |f| %>
-  <% if @tour.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@tour.errors.count, "error") %> prohibited this tour from being saved:</h2>
-
-      <ul>
-      <% @tour.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
 
   <div class="field">
     <%= f.label Tour.human_attribute_name(:registr) %><br />
@@ -23,13 +12,18 @@
     <%= f.label Tour.human_attribute_name(:client) %><br />
     <%= f.text_field :client %>
   </div>
+  
+  <div class="field">
+    <%= f.label Tour.human_attribute_name(:trend) %><br />
+    <%= collection_select(:tour, :trend_id, Trend.all, :id, :name) %>
+  </div>
   <div class="field">
     <%= f.label Tour.human_attribute_name(:price) %><br />
     <%= f.text_field :price %>
   </div>
   <div class="field">
     <%= f.label Tour.human_attribute_name(:employee) %><br />
-    <%= f.text_field :employee %>
+    <%= collection_select(:tour, :employee_id, Employee.all, :id, :name) %>
   </div>
   <div class="actions">
     <%= f.submit %>

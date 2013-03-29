@@ -1,5 +1,17 @@
 <h1>Новый тур</h1>
 
+<% if Trend.count == 0 %>
+<h5>Необходимо добавить туристическое направление: </h5> <%= link_to 'Добавить', new_trend_path %>
+<br />
+<% end %>
+
+<% if Employee.count == 0 %>
+<h5>Необходимо добавить сотрудников: </h5> <%= link_to 'Добавить', new_employee_path %>
+<br />
+<% end %>
+
+<% if Trend.count > 0 && Employee.count > 0 %>
 <%= render 'form' %>
+<% end %>
 
 <%= link_to 'Назад', tours_path %>

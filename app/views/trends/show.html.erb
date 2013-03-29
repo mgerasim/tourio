@@ -1,0 +1,7 @@
+<p>
+  <b><%= Trend.human_attribute_name(:name) %>:</b>
+  <%= @trend.name %>
+</p>
+
+<%= link_to 'Редактировать', edit_trend_path(@trend) %> |
+<%= link_to 'Назад', trends_path %>
