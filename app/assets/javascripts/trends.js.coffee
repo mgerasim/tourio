@@ -8,6 +8,7 @@ jQuery ->
       bProcessing: true
       bServerSide: true
       sAjaxSource: $('#trends').data('source')
+      bRetrieve: true
       oLanguage: 
         sProcessing:   "Подождите...",
         sLengthMenu:   "Показать _MENU_ записей",
@@ -26,3 +27,4 @@ jQuery ->
         oAria:
           sSortAscending:  ": активировать для сортировки столбца по возрастанию",
           sSortDescending: ": активировать для сортировки столбцов по убыванию"
+
