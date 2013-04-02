@@ -19,4 +19,9 @@ class Tour < ActiveRecord::Base
   
   belongs_to :employee
   belongs_to :trend
+  
+  def self.total_on(date)
+    where("date(date_of_departure) = ?", date).count
+  end
+  
 end

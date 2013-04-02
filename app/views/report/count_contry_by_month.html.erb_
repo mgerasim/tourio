@@ -1,0 +1,39 @@
+<h1>Отчёт</h1>
+
+<script type="text/javascript" charset="utf-8">
+  $(function() {
+    new Highcharts.Chart({
+      chart: {
+      
+        renderTo: "orders_chart",
+        
+        pointInterval: <%= 1.day * 1000 %>
+        pointStart: <%= 3.weeks.ago.to_i * 1000 %>
+        data: <%= (3.weeks.ago.to_date..Date.today).map {|date| Tour.total_on(date)}.inspect  %>
+        type: 'column'
+      },
+      title: {
+        text: "Orders by Day"
+      },
+      xAxis: {
+        type: "integer"
+      },
+      yAxis: {
+        title: {
+          text: "Количество"
+        }
+      },
+      tooltip: {
+        formatter: function() {
+          return Highcharts.dateFormat("%B %e, %Y", this.x) + ': ' +
+            "$" + Highcharts.numberFormat(this.y, 2);
+        }
+      },
+      series: [ {
+        data: [1,2,3,4,3,2,1]
+      }
+      ]
+    });
+  });
+</script>
+<div id="orders_chart" style="width:560px; height:300px;"></div>

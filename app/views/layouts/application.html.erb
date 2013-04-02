@@ -4,10 +4,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= content_for?(:title) ? yield(:title) : "Youcoin" %></title>
     <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "Система учёта путёвок" %>">
+    
     <%= stylesheet_link_tag "application", :media => "all" %>
     <%= javascript_include_tag "application" %>
     <%= csrf_meta_tags %>
-    <%= yield(:head) %>
+    <%= yield(:head) %>    
+    <script src="http://code.highcharts.com/highcharts.js"></script>    
   </head>
   <body class="<%= controller_name %> <%= action_name %>">
     <header class="navbar navbar-fixed-top">
