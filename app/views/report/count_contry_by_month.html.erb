@@ -76,6 +76,27 @@ $(function () {
     <div id="container" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
     
     <table id="datatable">
+	<thead>
+	    <tr>
+		<th></th>
+		<% Trend.all.each do |trend| %>
+		    <th><%= trend.name %></th>
+		<% end %>
+	    </tr>
+	</thead>
+	<tbody>
+	    <% Employee.all.each do |employee| %>
+	    <tr>
+		<th><%= employee.lastname %></th>
+		<% Trend.all.each do |subtrend| %>
+		    <td><%= employee.tours.where(:trend_id=>subtrend).count %></td>
+		<% end %>
+	    </tr
+	    <% end %>
+	</tbody>
+    </table>
+<!--    
+    <table id="datatable">
     <thead>
     <tr>
     <th></th>
@@ -111,3 +132,4 @@ $(function () {
     </tr>
     </tbody>
     </table>
+    -->

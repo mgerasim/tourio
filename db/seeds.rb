@@ -17,5 +17,9 @@ trends = Trend.create([
 ])
 
 employees = Employee.create([
-    { lastname: 'Иванов', firstname: 'Сергей', secondname: 'Васиельевич'}
+    { lastname: 'Иванов', firstname: 'Сергей', secondname: 'Васильевич'}
+])
+
+tours = Tour.create([
+    { client: 'Марина', date_of_departure: '2012-03-30', employee: Employee.find_by_lastname('Иванов'), price: 40500, registr: '0001', trend: Trend.find_by_name('Тайланд')}
 ])

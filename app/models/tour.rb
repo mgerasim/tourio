@@ -1,6 +1,6 @@
 #encoding: utf-8
 class Tour < ActiveRecord::Base
-  attr_accessible :client, :date_of_departure, :employee_id, :price, :registr, :trend_id
+  attr_accessible :client, :date_of_departure, :employee_id, :price, :registr, :trend_id, :employee, :trend
   
   HUMAN_ATTRIBUTE_NAMES = {
     :name => 'Клиент',
