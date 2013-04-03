@@ -37,7 +37,7 @@ private
     tours = Tour.order("#{sort_column} #{sort_direction}")
     tours = tours.page(page).per_page(per_page)
     if params[:sSearch].present?
-      tours = tours.where("registr like :search or client like :search", search: "%#{params[:sSearch]}%")
+      tours = tours.joins(:employee).where("registr like :search or client like :search or employees.lastname like :search or employees.firstname like :search or employees.secondname like :search", search: "%#{params[:sSearch]}%")
     end
     tours
   end
@@ -51,7 +51,7 @@ private
   end
 
   def sort_column
-    columns = %w[registr date_of_departure client price employee_id trend_id]
+    columns = %w[registr client date_of_departure trend_id price employee_id]
     columns[params[:iSortCol_0].to_i]
   end
 

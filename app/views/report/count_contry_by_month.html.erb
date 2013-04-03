@@ -46,17 +46,17 @@ $(function () {
     type: 'column'
     },
     title: {
-    text: 'Data extracted from a HTML table in the page'
+    text: 'Сколько каждый сотрудник реализовал путевок (количество)'
     },
     xAxis: {},
     yAxis: {
     title: {
-    text: 'Units'
+    text: 'Количество'
     }
     },
     tooltip: {
     formatter: function () {
-    return '<b>' + this.series.name + '</b><br/>' + this.y + ' ' + this.x.toLowerCase();
+    return '<b>' + this.x.toLowerCase() + '</b><br/>' + this.y + ' ' + this.series.name;
     }
     }
     };
@@ -95,41 +95,150 @@ $(function () {
 	    <% end %>
 	</tbody>
     </table>
-<!--    
-    <table id="datatable">
-    <thead>
-    <tr>
-    <th></th>
-    <th>Jane</th>
-    <th>John</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-    <th>Apples</th>
-    <td>3</td>
-    <td>4</td>
-    </tr>
-    <tr>
-    <th>Pears</th>
-    <td>2</td>
-    <td>0</td>
-    </tr>
-    <tr>
-    <th>Plums</th>
-    <td>5</td>
-    <td>11</td>
-    </tr>
-    <tr>
-    <th>Bananas</th>
-    <td>1</td>
-    <td>1</td>
-    </tr>
-    <tr>
-    <th>Oranges</th>
-    <td>2</td>
-    <td>4</td>
-    </tr>
-    </tbody>
+    
+    
+    
+<script type="text/javascript">
+
+// On document ready, call visualize on the datatable.
+(function($){ // encapsulate jQuery
+$(function () {
+    $(document).ready(function () {
+    /**
+    * Visualize an HTML table using Highcharts. The top (horizontal) header
+    * is used for series names, and the left (vertical) header is used
+    * for category names. This function is based on jQuery.
+    * @param {Object} table The reference to the HTML table to visualize
+    * @param {Object} options Highcharts options
+    */
+    Highcharts.visualize = function (table, options) {
+    // the categories
+    options.xAxis.categories = [];
+    $('tbody th', table).each(function (i) {
+    options.xAxis.categories.push(this.innerHTML);
+    });
+    
+    // the data series
+    options.series = [];
+    $('tr', table).each(function (i) {
+    var tr = this;
+    $('th, td', tr).each(function (j) {
+    if (j > 0) { // skip first column
+    if (i == 0) { // get the name and init the series
+    options.series[j - 1] = {
+    name: this.innerHTML,
+    data: []
+    };
+    } else { // add values
+    options.series[j - 1].data.push(parseFloat(this.innerHTML));
+    }
+    }
+    });
+    });
+    
+    $('#container_totalsumma').highcharts(options);
+    }
+    
+    var table = document.getElementById('datatable_totalsumma'),
+    options = {
+    chart: {
+    type: 'column'
+    },
+    title: {
+    text: 'Сколько каждый сотрудник реализовал путевок (общая сумма)'
+    },
+    xAxis: {},
+    yAxis: {
+    title: {
+    text: 'Цена'
+    }
+    },
+    tooltip: {
+    formatter: function () {
+    return '<b>' + this.x.toLowerCase() + '</b><br/>' + this.y + ' ' + this.series.name;
+    }
+    }
+    };
+    
+    Highcharts.visualize(table, options);
+    });
+    
+    });
+    })(jQuery);
+    </script>
+    
+    
+    
+    
+    
+    
+    <div id="container_totalsumma" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
+    
+    <table id="datatable_totalsumma">
+	<thead>
+	    <tr>
+		<th></th>
+		<% Trend.all.each do |trend| %>
+		    <th><%= trend.name %></th>
+		<% end %>
+	    </tr>
+	</thead>
+	<tbody>
+	    <% Employee.all.each do |employee| %>
+	    <tr>
+		<th><%= employee.lastname %></th>
+		<% Trend.all.each do |subtrend| %>
+		    <td><%= employee.tours.where(:trend_id=>subtrend).sum(:price) %></td>
+		<% end %>
+	    </tr
+	    <% end %>
+	</tbody>
     </table>
-    -->
+    
+    
+    
+    
+<script type="text/javascript">
+    $(function () {
+    $('#employees_and_summa_charts').highcharts({
+    chart: {
+    plotBackgroundColor: null,
+    plotBorderWidth: null,
+    plotShadow: false
+    },
+    title: {
+    text: 'Распределение суммы, реализованных турагентами'
+    },
+    tooltip: {
+    pointFormat: '{series.name}: <b>{point.percentage}%</b>',
+    percentageDecimals: 1
+    },
+    plotOptions: {
+    pie: {
+    allowPointSelect: true,
+    cursor: 'pointer',
+    dataLabels: {
+    enabled: true,
+    color: '#000000',
+    connectorColor: '#000000',
+    formatter: function() {
+    return '<b>'+ this.point.name +'</b>: '+ this.percentage +' %';
+    }
+    }
+    }
+    },
+    series: [{
+    type: 'pie',
+    name: 'Browser share',
+    data: [
+    <% Employee.all.each do |employee| %>
+	['<%= employee.name %>', <%= (employee.tours.sum(:price).to_i * Tour.sum(:price).to_i / 100).to_f.round(1)  %>],
+    <% end %>
+
+    ]
+    }]
+    });
+    });
+</script> 
+
+<div id="employees_and_summa_charts" style="width:860px; height:400px;"></div>
